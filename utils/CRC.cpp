@@ -48,6 +48,10 @@ uint32_t data_packet::CRC_calculate(const uint8_t *data, uint64_t size) {
         init_crc32_table();
     }
 
+    if (data == nullptr || size == 0) {
+        return 0xffffffff;
+    }
+
     uint32_t crc = INIT;
 
     // 查表运算

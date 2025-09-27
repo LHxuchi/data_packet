@@ -5,6 +5,7 @@
 #ifndef FILE_HEADER_H
 #define FILE_HEADER_H
 #include <cstdint>
+#include <string>
 
 namespace data_packet {
     class file_header {
@@ -77,6 +78,7 @@ namespace data_packet {
             this->time = time;
         }
 
+        static constexpr unsigned int SIZE = 29;
     private:
         uint8_t compression_and_encryption_method = 0; // 压缩与加密方法，压缩方法占6-7bits，加密方法占4-5bits
         uint32_t file_number = 0; // 包中文件个数
@@ -88,6 +90,24 @@ namespace data_packet {
 
         /* 文件头总长度为29B */
     };
+
+    /**
+     * @brief 包内每个文件的文件头
+     */
+    struct local_file_header {
+        uint64_t original_file_size = 0; ///<指明文件的大小
+        uint16_t last_modified_date = 0; ///<最近修改的日期
+        uint16_t last_modified_time = 0; ///<最近修改的时间
+        uint16_t creation_date = 0; ///<创建日期
+        uint16_t creation_time = 0; ///<创建时间
+        uint32_t CRC = 0; ///<循环校验码
+        uint16_t file_name_length = 0; ///< 件名长度
+        std::string file_name; ///< 文件绝对路径
+
+        static constexpr unsigned int SIZE = 22;
+    };
+
+    /* 定长file_header的长度为22字节 */
 
 }
 

@@ -35,7 +35,7 @@ std::vector<data_packet::file_meta_info> data_packet::get_file_metas(const std::
                     std::time_t timestamp = std::chrono::system_clock::to_time_t(sys_time);
 
                     metas.emplace_back(
-                    relative(entry.path(), path).string(),
+                    entry.path().string(),
                     entry.file_size(),
                     to_date(timestamp),
                     to_time(timestamp));
