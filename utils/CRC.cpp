@@ -2,7 +2,7 @@
 // Created by DELL on 25-9-25.
 //
 
-#include "CRC.h"
+#include "../include/utils/CRC.h"
 
 /* 此处的CRC特指CRC-32 / IEEE 802.3 标准的CRC-32，
  * 计算过程中包含输入数据反转与输出数据反转，生成多项式

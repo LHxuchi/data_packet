@@ -8,14 +8,6 @@ namespace data_packet{
  */
 class local_file_header {
 public:
-    enum class compression_method {
-        None = 0, LZ77
-    };
-
-    enum class encryption_method {
-        None = 0
-    };
-
     local_file_header() = default;
 
     ~local_file_header();

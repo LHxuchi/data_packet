@@ -5,9 +5,9 @@
 #include <iostream>
 #include <fstream>
 
-#include "utils/CRC.h"
-#include "utils/ms_dos_time.h"
-#include "file_system/file_paths.h"
+#include "include/utils/CRC.h"
+#include "include/utils/ms_dos_time.h"
+#include "include/file_system/file_paths.h"
 
 using namespace data_packet;
 

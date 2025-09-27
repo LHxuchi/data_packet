@@ -5,11 +5,13 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_library(data_packet SHARED header/local_file_header.cpp
         utils/CRC.cpp
-        utils/CRC.h
+        include/utils/CRC.h
         utils/ms_dos_time.cpp
-        utils/ms_dos_time.h
-        file_system/file_paths.h
-        file_system/file_paths.cpp)
+        include/utils/ms_dos_time.h
+        include/file_system/file_paths.h
+        file_system/file_paths.cpp
+        header/file_header.cpp
+        include/header/file_header.h)
 
 add_executable(TEST testmain.cpp)
 
