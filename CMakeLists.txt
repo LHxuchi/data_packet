@@ -15,7 +15,9 @@ add_library(data_packet SHARED
         packet/local_file_packet.cpp
         include/packet/local_file_packet.h
         include/packet/file_packet.h
-        packet/file_packet.cpp)
+        packet/file_packet.cpp
+        utils/byte.cpp
+        include/utils/byte.h)
 
 add_executable(TEST testmain.cpp)
 

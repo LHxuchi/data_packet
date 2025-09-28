@@ -30,6 +30,14 @@ namespace data_packet {
 
         void set_encryption_method(encryption_method method);
 
+        [[nodiscard]] uint8_t get_compression_and_encryption_method() const {
+            return compression_and_encryption_method;
+        }
+
+        void set_compression_and_encryption_method(const uint8_t compression_and_encryption_method) {
+            this->compression_and_encryption_method = compression_and_encryption_method;
+        }
+
         [[nodiscard]] uint32_t get_file_number() const {
             return file_number;
         }

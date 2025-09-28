@@ -19,6 +19,12 @@ namespace data_packet {
         local_file_packet();
 
         /**
+         * @brief 获取文件头的流
+         * @return 文件头流
+         */
+        std::unique_ptr<uint8_t[]> header_buffer() const;
+
+        /**
          * @brief 根据文件的info信息构建包文件
          * @param info 需要打包的文件的meta信息
          */
@@ -52,6 +58,12 @@ namespace data_packet {
          * @return 若空则返回真，不空则返回假
          */
         [[nodiscard]] bool empty() const noexcept;
+
+        /**
+         * @brief 验证文件完整性并读入文件
+         * @param file_data 文件起始指针
+         */
+        void read_local_file(const char* file_data);
 
         ~local_file_packet() = default;
 
@@ -144,7 +156,7 @@ namespace data_packet {
         }
 
         [[nodiscard]] data_iterator end() const noexcept {
-            return data_iterator{data.get()+header.original_file_size()};
+            return data_iterator{data.get()+header.original_file_size};
         }
 
     private:
