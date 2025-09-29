@@ -10,44 +10,8 @@
  * 值为0xFFFFFFFFUL。
  */
 
-namespace {
-    constexpr uint32_t POLYNOMIAL = 0xEDB88320; // CRC-32的生成多项式
-    constexpr uint32_t INIT = 0xffffffff; // CRC-32初始值
-    constexpr uint32_t FINALXOR = 0xffffffff;
-
-    // CRC-32的查表优化，来自于1字节数据的所有与生成多项式的计算结果
-    uint32_t crc32_table[256];
-
-    void init_crc32_table() {
-        // 计算一字节可能的多项式计算结果
-        for (int i= 0; i < 256; i++) {
-
-            // 反转计算，故结果是从尾部开始试商
-            uint32_t crc = i;
-            for (int j = 0; j < 8; j++) {
-                if (crc & 1) {
-                    crc = (crc >> 1) ^ POLYNOMIAL;
-                }
-                else
-                    crc >>= 1;
-            }
-
-            // 存表
-            crc32_table[i] = crc;
-        }
-    }
-
-}
-
-
 
 uint32_t data_packet::CRC_calculate(const uint8_t *data, uint64_t size) {
-    // 初始化计算表
-    static bool is_initialized = false;
-    if (!is_initialized) {
-        init_crc32_table();
-    }
-
     if (data == nullptr || size == 0) {
         return 0xffffffff;
     }

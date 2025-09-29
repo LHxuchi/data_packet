@@ -5,54 +5,33 @@
 
 namespace data_packet {
     uint16_t get_word(const char* data) {
-        uint16_t dword = 0;
-        dword += static_cast<uint16_t>(*data);
-        ++data;
-        dword <<= 8;
-        dword += static_cast<uint16_t>(*data);
-        return dword;
+        uint16_t word = 0;
+        for (int i =0; i < 2; i++) {
+            word <<= 8;
+            uint8_t byte = data[i];
+            word |= (byte & 0xFF);
+        }
+        return word;
     }
 
     uint32_t get_dword(const char* data) {
-        uint32_t qword = 0;
-        qword += static_cast<uint32_t>(*data);
-        ++data;
-        qword <<= 8;
-        qword += static_cast<uint32_t>(*data);
-        ++data;
-        qword <<= 8;
-        qword += static_cast<uint32_t>(*data);
-        ++data;
-        qword <<= 8;
-        qword += static_cast<uint32_t>(*data);
-        return qword;
+        uint32_t dword = 0;
+        for (int i =0; i < 4; i++) {
+            dword <<= 8;
+            uint8_t byte = data[i];
+            dword |= (byte & 0xFF);
+        }
+        return dword;
     }
 
     uint64_t get_qword(const char* data) {
-        uint64_t qword64 = 0;
-        qword64 += static_cast<uint64_t>(*data);
-        ++data;
-        qword64 <<= 8;
-        qword64 += static_cast<uint64_t>(*data);
-        ++data;
-        qword64 <<= 8;
-        qword64 += static_cast<uint64_t>(*data);
-        ++data;
-        qword64 <<= 8;
-        qword64 += static_cast<uint64_t>(*data);
-        ++data;
-        qword64 <<= 8;
-        qword64 += static_cast<uint64_t>(*data);
-        ++data;
-        qword64 <<= 8;
-        qword64 += static_cast<uint64_t>(*data);
-        ++data;
-        qword64 <<= 8;
-        qword64 += static_cast<uint64_t>(*data);
-        ++data;
-        qword64 <<= 8;
-        qword64 += static_cast<uint64_t>(*data);
-        return qword64;
+        uint64_t qword = 0;
+        for (int i =0; i < 8; i++) {
+            qword <<= 8;
+            uint8_t byte = data[i];
+            qword |= (byte & 0xFF);
+        }
+        return qword;
     }
 
     std::tuple<uint8_t, uint8_t> word_to_byte(uint16_t word) {

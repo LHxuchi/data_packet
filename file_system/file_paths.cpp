@@ -6,7 +6,7 @@
 
 #include <filesystem>
 #include <iostream>
-#include <stack>
+#include <queue>
 
 
 std::vector<data_packet::file_meta_info> data_packet::get_file_metas(const std::string &path) {
@@ -15,14 +15,14 @@ std::vector<data_packet::file_meta_info> data_packet::get_file_metas(const std::
     std::vector<file_meta_info> metas;
 
     try {
-        std::stack<directory_iterator> directory_stack; // 层次遍历栈
-        directory_stack.emplace(path);
-        while (!directory_stack.empty()) {
-            // 栈顶目录遍历
-            for (const auto& entry : directory_stack.top()) {
+        std::queue<directory_iterator> queue; // 层次遍历队列
+        queue.emplace(path);
+        while (!queue.empty()) {
+            // 队列目录遍历
+            for (const auto& entry : queue.front()) {
                 if (entry.is_directory()) {
-                    // 目录入栈
-                    directory_stack.emplace(entry.path());
+                    // 目录入队
+                    queue.emplace(entry.path());
                 }
                 else if (entry.exists()) {
                     // 将 file_time_type 转换为 system_clock 时间点
@@ -41,7 +41,7 @@ std::vector<data_packet::file_meta_info> data_packet::get_file_metas(const std::
                     to_time(timestamp));
                 }
             }
-            directory_stack.pop();
+            queue.pop();
         }
     }
     catch (const filesystem_error& err) {

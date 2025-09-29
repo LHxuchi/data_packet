@@ -19,10 +19,22 @@ namespace data_packet {
         local_file_packet();
 
         /**
+         * @brief 获取当前文件流
+         * @return 文件流起始指针
+         */
+        [[nodiscard]] uint8_t* buffer() const;
+
+        /**
+         * @brief 获取当前文件头的长度
+         * @return 文件头长度
+         */
+        [[nodiscard]] uint16_t header_size() const;
+
+        /**
          * @brief 获取文件头的流
          * @return 文件头流
          */
-        std::unique_ptr<uint8_t[]> header_buffer() const;
+        [[nodiscard]] std::unique_ptr<uint8_t[]> header_buffer() const;
 
         /**
          * @brief 根据文件的info信息构建包文件
@@ -156,8 +168,41 @@ namespace data_packet {
         }
 
         [[nodiscard]] data_iterator end() const noexcept {
-            return data_iterator{data.get()+header.original_file_size};
+            return data_iterator{data.get()+header.file_size};
         }
+
+        [[nodiscard]] uint64_t get_file_size() const {
+            return header.file_size;
+        }
+
+        [[nodiscard]] uint16_t get_last_modified_date() const {
+            return header.last_modified_date;
+        }
+
+        [[nodiscard]] uint16_t get_last_modified_time() const {
+            return header.last_modified_time;
+        }
+
+        [[nodiscard]] uint16_t get_creation_date() const {
+            return header.creation_date;
+        }
+
+        [[nodiscard]] uint16_t get_creation_time() const {
+            return header.creation_time;
+        }
+
+        [[nodiscard]] uint32_t get_crc() const {
+            return header.CRC;
+        }
+
+        [[nodiscard]] uint16_t get_file_name_length() const {
+            return header.file_name_length;
+        }
+
+        [[nodiscard]] std::string get_file_name() const {
+            return header.file_name;
+        }
+
 
     private:
         local_file_header header; // 文件头
